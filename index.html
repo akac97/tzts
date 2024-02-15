@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Önéletrajz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        header {
+            background: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/clipboard.js/2.0.11/clipboard.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Önéletrajz</h1>
+        </header>
+        <section>
+            <h2>Rólam</h2>
+            <p id="about">(Ide írja be az önéletrajzát)</p>
+        </section>
+        <section>
+            <h2>Elérhetőségeim</h2>
+            <p>Email: (email cím)</p>
+            <p>Telefonszám: (telefonszám)</p>
+        </section>
+        <button class="btn" data-clipboard-target="#about">Másolás a vágólapra</button>
+    </div>
+    <script>
+        var clipboard = new ClipboardJS('.btn');
+
+        clipboard.on('success', function(e) {
+            console.log(e);
+            $(e.trigger).animate({
+                opacity: 0.5,
+                left: "+=50",
+                height: "toggle"
+            }, 1000, function() {
+                // Animation complete.
+            });
+        });
+
+        clipboard.on('error', function(e) {
+            console.log(e);
+        });
+    </script>
+</body>
+</html>
