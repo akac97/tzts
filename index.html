@@ -1,37 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Website</title>
     <style>
         body {
-            background-color: #000;
-            color: #0f0;
-            font-family: monospace;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: black;
+            color: lime;
+            overflow: hidden;
         }
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #000;
-                color: #0f0;
-            }
-        }
-        @media screen and (max-width: 600px) {
-            body {
-                font-size: 18px;
-            }
+        .drop {
+            position: absolute;
+            font-size: 15px;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-    <div id="cmatrix"></div>
     <script>
-        var cmatrix = document.getElementById('cmatrix');
-        function randomCharacter() {
-            var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-            return chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        setInterval(function() {
-            cmatrix.textContent += randomCharacter();
-        }, 100);
+        $(document).ready(function() {
+            var symbols = "0123456789ABCDEF";
+            var drops = [];
+
+            for(var i = 0; i < $(window).width() / 10; i++) {
+                drops[i] = 1;
+            }
+
+            function drawMatrix() {
+                $('body').empty();
+                for(var i = 0; i < drops.length; i++) {
+                    var text = symbols[Math.floor(Math.random() * symbols.length)];
+                    var drop = $('<div>').addClass('drop').text(text).css('left', i * 10 + 'px').css('top', drops[i] * 10 + 'px');
+                    $('body').append(drop);
+                    if(drops[i] * 10 > $(window).height() && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+
+            setInterval(drawMatrix, 33);
+        });
     </script>
 </body>
 </html>
