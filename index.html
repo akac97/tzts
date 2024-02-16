@@ -1,84 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Önéletrajz</title>
+    <title>My Website</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: #000;
+            color: #0f0;
+            font-family: monospace;
         }
-        .container {
-            width: 80%;
-            margin: auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #000;
+                color: #0f0;
+            }
         }
-        header {
-            background: #f0f0f0;
-            padding: 20px;
-            text-align: center;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        h1, h2 {
-            color: #444;
-        }
-        p {
-            line-height: 1.6;
-        }
-        button {
-            background-color: #008CBA;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 4px;
+        @media screen and (max-width: 600px) {
+            body {
+                font-size: 18px;
+            }
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Önéletrajz</h1>
-        </header>
-        <section>
-            <h2>Rólam</h2>
-            <p id="about">(Ide írja be az önéletrajzát)</p>
-        </section>
-        <section>
-            <h2>Elérhetőségeim</h2>
-            <p>Email: (email cím)</p>
-            <p>Telefonszám: (telefonszám)</p>
-        </section>
-        <button class="btn" data-clipboard-target="#about">Másolás a vágólapra</button>
-    </div>
+    <div id="cmatrix"></div>
     <script>
-        var clipboard = new ClipboardJS('.btn');
-
-        clipboard.on('success', function(e) {
-            console.log(e);
-            $(e.trigger).animate({
-                opacity: 0.5,
-                left: "+=50",
-                height: "toggle"
-            }, 1000, function() {
-                // Animation complete.
-            });
-        });
-
-        clipboard.on('error', function(e) {
-            console.log(e);
-        });
+        var cmatrix = document.getElementById('cmatrix');
+        function randomCharacter() {
+            var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+            return chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        setInterval(function() {
+            cmatrix.textContent += randomCharacter();
+        }, 100);
     </script>
 </body>
 </html>
