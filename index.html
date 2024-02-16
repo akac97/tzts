@@ -12,10 +12,19 @@
             position: absolute;
             font-size: 15px;
         }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
     </style>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/jquery@latest/dist/jquery.min.js"></script>
 </head>
 <body>
+    <div class="overlay"></div>
     <script>
         $(document).ready(function() {
             var symbols = "0123456789ABCDEF";
@@ -31,14 +40,15 @@
                     var text = symbols[Math.floor(Math.random() * symbols.length)];
                     var drop = $('<div>').addClass('drop').text(text).css('left', i * 10 + 'px').css('top', drops[i] * 10 + 'px');
                     $('body').append(drop);
-                    if(drops[i] * 10 > $(window).height() && Math.random() > 0.975) {
+                    if(drops[i] * 10 > $(window).height() && Math.random() > 0.95) { // Increased chance of reset to make the rain stronger
                         drops[i] = 0;
                     }
                     drops[i]++;
                 }
+                $('body').append($('<div>').addClass('overlay')); // Add the overlay back in after clearing the body
             }
 
-            setInterval(drawMatrix, 33);
+            setInterval(drawMatrix, 33); // Decreased interval to make the rain faster
         });
     </script>
 </body>
